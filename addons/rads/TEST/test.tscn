@@ -1,0 +1,306 @@
+[gd_scene format=3 uid="uid://r1lidofnihc7"]
+
+[ext_resource type="Script" uid="uid://dowflbdsvwwt8" path="res://addons/rads/TEST/test.gd" id="1_37kl0"]
+[ext_resource type="Texture2D" uid="uid://cyjcgtvanp8p8" path="res://addons/rads/TEST/sky_32_2k.png" id="2_1rk6q"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_163db"]
+panorama = ExtResource("2_1rk6q")
+
+[sub_resource type="Sky" id="Sky_mxqqr"]
+sky_material = SubResource("PanoramaSkyMaterial_163db")
+
+[sub_resource type="Environment" id="Environment_8uh7m"]
+background_mode = 2
+sky = SubResource("Sky_mxqqr")
+tonemap_mode = 2
+tonemap_exposure = 1.2
+tonemap_agx_white = 16.5
+sdfgi_use_occlusion = true
+sdfgi_y_scale = 2
+glow_enabled = true
+volumetric_fog_density = 0.017
+adjustment_enabled = true
+adjustment_saturation = 1.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_37kl0"]
+albedo_color = Color(0.42645976, 0.31313846, 0.28728014, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mf4mk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uqi0"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ppyta"]
+albedo_color = Color(0.22639495, 0.45144153, 1, 1)
+
+[sub_resource type="Animation" id="Animation_8uh7m"]
+resource_name = "Spinging"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Objects/Rotation/MeshInstance3D5:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.8408964, 0.8408964),
+"update": 0,
+"values": [Vector3(-2.0311184e-08, 2.9412487, 0.403374), Vector3(0, 20.612339, 0.40317106)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6uqi0"]
+_data = {
+&"Spinging": SubResource("Animation_8uh7m")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykrsh"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="Animation" id="Animation_37kl0"]
+resource_name = "Moving"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 10),
+"transitions": PackedFloat32Array(0.9659364, 0.9659364, 0.9659364),
+"update": 0,
+"values": [Vector3(3.6213493, 1.2146795, 5.0732), Vector3(-4.819, 1.215, 5.073), Vector3(3.6213493, 1.2146795, 5.0732)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5, 10),
+"transitions": PackedFloat32Array(0.9659364, 0.9659364, 0.9659364),
+"update": 0,
+"values": [Vector3(-0.0732671, 0.23496526, -0.016556092), Vector3(-0.073303826, -0.31415927, -0.015707964), Vector3(-0.0732671, 0.23496526, -0.016556092)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ppyta"]
+_data = {
+&"Moving": SubResource("Animation_37kl0")
+}
+
+[sub_resource type="Theme" id="Theme_37kl0"]
+default_font_size = 64
+
+[sub_resource type="Theme" id="Theme_8uh7m"]
+default_font_size = 64
+
+[sub_resource type="Theme" id="Theme_6uqi0"]
+default_font_size = 64
+
+[sub_resource type="Theme" id="Theme_ppyta"]
+default_font_size = 16
+
+[node name="TEST" type="Node3D" unique_id=644843451]
+script = ExtResource("1_37kl0")
+
+[node name="Enviroment" type="Node3D" parent="." unique_id=1573221662]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment" unique_id=184192727]
+environment = SubResource("Environment_8uh7m")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment" unique_id=1404263161]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Objects" type="Node3D" parent="." unique_id=164140780]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Objects" unique_id=1366999422]
+transform = Transform3D(17.01, 0, 0, 0, 1.912, 0, 0, 0, 24.765, -0.021427512, -0.9557146, -10.607003)
+material_override = SubResource("StandardMaterial3D_37kl0")
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Objects" unique_id=1150191275]
+transform = Transform3D(1.4100001, 0, 0, 0, 0.020858128, -1.4082264, 0, 0.41547677, 0.07069705, -3.524938, 0.69471145, 0.38016605)
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Objects" unique_id=1925477288]
+transform = Transform3D(-0.0010913756, -0.004337053, 1.4099231, 1.4061302, -0.030800201, 0, 0.10438919, 0.4148356, 0.014740568, 2.2706776, 0.59257233, -3.4109256)
+material_override = SubResource("StandardMaterial3D_6uqi0")
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Objects" unique_id=614665711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4162674, 1.2498701, 0.18378544)
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Objects" unique_id=936554920]
+transform = Transform3D(1.0262791, 0.039435584, 0.95759326, 0.18413949, 0.39649314, -0.38493067, -0.9491805, 0.11955781, 0.96069956, 5.4138436, 1.5116858, -0.14454913)
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Objects" unique_id=530264661]
+transform = Transform3D(3.0051956, 0.31136474, -4.6115357e-08, 0, -4.1088708e-08, -3.1849995, -1.0549963, 0.886934, -1.3136128e-07, -6.6348944, 0.76567507, -3.9361699)
+material_override = SubResource("StandardMaterial3D_ppyta")
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Objects" unique_id=699716290]
+transform = Transform3D(2.7081962, 0.49472487, -7.3272304e-08, 0, -4.10887e-08, -3.1849997, -1.6762748, 0.7992793, -1.1837902e-07, 0.87260723, 0.76567507, -9.895742)
+material_override = SubResource("StandardMaterial3D_ppyta")
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Objects" unique_id=909648745]
+transform = Transform3D(3.1849995, 0, 0, 0, -4.1088704e-08, -3.1849997, 0, 0.94, -1.3922076e-07, -5.697195, 0.76567507, -14.330014)
+material_override = SubResource("StandardMaterial3D_ppyta")
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Objects" unique_id=370105510]
+transform = Transform3D(3.016793, -0.3014384, 4.4645184e-08, -0.6072146, -0.5293296, -2.5610108, 0.82126266, 0.7159225, -1.8935273, 7.669571, 0.76567507, -14.330014)
+material_override = SubResource("StandardMaterial3D_ppyta")
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="Rotation" type="AnimationPlayer" parent="Objects" unique_id=1222202354]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_6uqi0")
+autoplay = &"Spinging"
+
+[node name="Label3D" type="Label3D" parent="Objects/Rotation" unique_id=150413912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.50533354, 0.5247146, 1.1875564)
+text = "Moving Mesh "
+
+[node name="Label3D3" type="Label3D" parent="Objects/Rotation" unique_id=200917599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05937, 0.5247146, 1.1875564)
+text = "Far Mesh "
+
+[node name="Label3D4" type="Label3D" parent="Objects/Rotation" unique_id=545821121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0909986, 0.5247146, 1.1875564)
+text = "Floating Mesh"
+
+[node name="Label3D2" type="Label3D" parent="Objects/Rotation" unique_id=1498690784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4653506, 0.5097202, 1.1875564)
+text = "Static Mesh
+"
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Objects/Rotation" unique_id=686877890]
+transform = Transform3D(0.9536897, -0.12004335, 0.95552427, 0.5533041, 0.3826321, 1.1833014e-08, -0.8788803, 0.110626906, 1.0368575, -0.50533354, 1.2460296, 0.3449849)
+material_override = SubResource("StandardMaterial3D_ykrsh")
+mesh = SubResource("BoxMesh_mf4mk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Objects" unique_id=1776511364]
+libraries/ = SubResource("AnimationLibrary_ppyta")
+autoplay = &"Moving"
+
+[node name="Label" type="Label" parent="." unique_id=1249220407]
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 56.0
+offset_bottom = 37.0
+text = "aaa"
+
+[node name="Label2" type="Label" parent="." unique_id=640462701]
+offset_left = 17.0
+offset_top = 45.0
+offset_right = 57.0
+offset_bottom = 68.0
+text = "aaa"
+
+[node name="Label3" type="Label" parent="." unique_id=1465689091]
+offset_left = 17.0
+offset_top = 71.0
+offset_right = 57.0
+offset_bottom = 94.0
+text = "aaa"
+
+[node name="Label4" type="Label" parent="." unique_id=1753691042]
+offset_left = 16.0
+offset_top = 94.0
+offset_right = 56.0
+offset_bottom = 117.0
+text = "aaa"
+
+[node name="Label5" type="Label" parent="." unique_id=1381063282]
+offset_left = 16.0
+offset_top = 117.0
+offset_right = 56.0
+offset_bottom = 140.0
+text = "aaa"
+
+[node name="Label6" type="Label" parent="." unique_id=1041001670]
+offset_left = 16.0
+offset_top = 145.0
+offset_right = 56.0
+offset_bottom = 168.0
+text = "aaa"
+
+[node name="Label7" type="Label" parent="." unique_id=1203456668]
+offset_left = 17.0
+offset_top = 168.0
+offset_right = 57.0
+offset_bottom = 191.0
+text = "aaa"
+
+[node name="Scale" type="Control" parent="." unique_id=715706285]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = 62.00003
+offset_right = -12.0
+offset_bottom = 62.00003
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.46, 0.46)
+
+[node name="Performance" type="Button" parent="Scale" unique_id=1356511547]
+layout_mode = 0
+offset_left = -388.8199
+offset_top = -226.08696
+offset_right = 20.180115
+offset_bottom = -130.08696
+theme = SubResource("Theme_37kl0")
+text = "Performance"
+
+[node name="balanced" type="Button" parent="Scale" unique_id=74482424]
+layout_mode = 0
+offset_left = -272.8199
+offset_top = -114.08696
+offset_right = 16.180115
+offset_bottom = -18.08696
+theme = SubResource("Theme_8uh7m")
+text = "balanced"
+
+[node name="Qualtiy" type="Button" parent="Scale" unique_id=316717028]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.87903
+offset_top = 3.2141876
+offset_right = 14.120972
+offset_bottom = 99.21419
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_6uqi0")
+text = "Qualtiy"
+
+[node name="Frame Gen" type="CheckButton" parent="Scale" unique_id=1801967934]
+layout_mode = 0
+offset_left = -334.89148
+offset_top = 133.64893
+offset_right = -201.89148
+offset_bottom = 164.64893
+scale = Vector2(2.645, 2.645)
+theme = SubResource("Theme_ppyta")
+text = "Frame Gen"
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1604157115]
+transform = Transform3D(0.9726713, -0.00093922764, 0.23218462, -0.01651092, 0.9971805, 0.07320157, -0.23159872, -0.07503465, 0.96991336, 3.6213493, 1.2146795, 5.0732)
+
+[connection signal="pressed" from="Scale/Performance" to="." method="_on_performance_pressed"]
+[connection signal="pressed" from="Scale/balanced" to="." method="_on_balanced_pressed"]
+[connection signal="pressed" from="Scale/Qualtiy" to="." method="_on_qualtiy_pressed"]
+[connection signal="toggled" from="Scale/Frame Gen" to="." method="_on_frame_gen_toggled"]
