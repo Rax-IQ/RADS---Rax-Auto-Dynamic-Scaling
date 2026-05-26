@@ -1,175 +1,75 @@
-# RADS---Rax-Auto-Dynamic-Scaling
-
-RADS – Rax Auto Dynamic Scaling
-Version: 1.0
-Engine: Godot 4.3+ | Renderer: Forward+ or Mobile (required for FSR)
-
-WHAT IS RADS?
-RADS is a DLSS-like addon that automatically adjusts your game's rendering quality in real time based on current FPS, so the game always runs as smoothly as possible without manual tweaking.
-
-It controls four things at the same time:
-
-3D Resolution Scale (how many pixels are rendered before upscaling)
-
-FSR mode (FSR 2 = quality, FSR 1 = fast, OFF = native)
-
-Anti-Aliasing (TAA + MSAA / FXAA / OFF depending on mode)
-
-Shadow Atlas Size (shadow quality based on FPS tier)
-
-INSTALLATION
-
-Copy the folder addons/rss/ into your project's res://addons/ folder.
-
-Your structure should look like this:
-
-res://
-└── addons/
-└── rss/
-├── plugin.cfg
-├── plugin.gd
-└── rss_manager.gd
-
-Open Project → Project Settings → Plugins
-
-Enable "RADS – Rax Auto Dynamic Scaling"
-
-A new tab called "RADS" appears in the bottom panel
-
-Done. RADS runs automatically in gameplay.
-
-BOTTOM PANEL
-
-After enabling the plugin you will see the RADS tab in the bottom panel.
-
-RADS | [ Balanced ] | Performance Balanced Quality | (info)
-
-Click any button to switch the default mode.
-The selection is saved in Project Settings under rads/mode.
-
-MODES
-
-PERFORMANCE
-
-FSR: OFF
-
-AA: OFF
-
-Scale low: 25%
-
-Scale high: 35%
-
-Best for low-end devices
-
-BALANCED
-
-FSR: FSR 1 on drop / FSR 2 on recover
-
-AA: FXAA
-
-Scale low: 35%
-
-Scale high: 60%
-
-Recommended default
-
-QUALITY
-
-FSR: FSR 1 on drop / FSR 2 on recover
-
-AA: MSAA 4x + TAA
-
-Scale low: 50%
-
-Scale high: 75%
-
-Best image quality
-
-SHADOW ATLAS
-
-FPS < 60 → Shadow atlas = 524
-FPS ≥ 60 → Shadow atlas = 2024
-FPS ≥ 300 → Shadow atlas = 4028
-
-Both Omni/Spot and Directional lights are affected.
-
-FPS RULES
-
-FPS < 60 → FSR OFF + lowest scale + AA OFF + shadow 524
-FPS drops 5+ below baseline → low scale + FSR 1
-FPS recovers 5+ above baseline → high scale + FSR 2
-
-Baseline is a rolling average to avoid sudden switching.
-
-AUTOLOAD
-
-When enabled, the plugin registers an Autoload called RADSManager.
-
-You can call it from anywhere:
-
-RADSManager.Performance()
-RADSManager.Balanced()
-RADSManager.Quality()
-
-It is removed automatically when the plugin is disabled.
-
-PUBLIC FUNCTIONS
-
-Mode Switchers:
-
-RADSManager.Performance()
-RADSManager.Balanced()
-RADSManager.Quality()
-
-Info Getters:
-
-RADSManager.get_mode() → String
-RADSManager.get_scale() → String
-RADSManager.get_fsr() → String
-RADSManager.get_aa() → String
-RADSManager.get_shadow() → String
-
-USAGE EXAMPLES
-
-Switch via UI:
-
-func _on_performance_button_pressed() -> void:
-RADSManager.Performance()
-
-func _on_balanced_button_pressed() -> void:
-RADSManager.Balanced()
-
-func _on_quality_button_pressed() -> void:
-RADSManager.Quality()
-
-Show info:
-
-func _process(_delta) -> void:
-$Label.text = "%s | %s | %s | Shadow %s" % [
-RADSManager.get_mode(),
-RADSManager.get_scale(),
-RADSManager.get_fsr(),
-RADSManager.get_shadow()
-]
-
-Platform-based switch:
-
-func _ready() -> void:
-if OS.get_name() == "Android" or OS.get_name() == "iOS":
-RADSManager.Performance()
-else:
-RADSManager.Balanced()
-
-NOTES
-
-FSR 2 requires Forward+ or Mobile renderer.
-
-Not compatible with Compatibility renderer.
-
-TAA may cause ghosting.
-
-RADS writes to ProjectSettings for persistence.
-
-Does not run inside the editor (Engine.is_editor_hint guard).
-
-Runs only during gameplay.
+<h2>What is Frame Reflex?</h2>
+<p>
+  Frame Reflex is a <strong>single-script autoload plugin for Godot 4.3+</strong> that continuously measures your game's real runtime performance and adjusts the rendering pipeline on the fly &mdash; render scale, shadow quality, FSR, physics tick rate, LOD budget, SSAO, SSIL, SDFGI, and more.
+</p>
+<p>
+  <strong>No manual per-device config. No build variants. Drop it in and forget about it.</strong>
+</p>
+<hr>
+<h2>How It Works ?</h2>
+<p>
+  </p>
+<p><strong>FrameReflex</strong> is a Godot 4 plugin that automatically adjusts rendering quality (resolution scale, shadows, LOD, FSR) in real-time to maintain a stable 60+ FPS target. It takes 4–10 seconds on startup to detect your device's performance, then keeps things running smoothly with three manual presets (Performance / Balanced / Quality) controllable from the editor.<br></p>
+<p>
+</p>
+<hr>
+<h2>Quality Profiles</h2>
+<p>Three built-in profiles, each defining a <em>render scale band</em> (not a fixed value). The scale drifts continuously within that band in 2.5% steps, with a 3-second recovery cooldown and 5 FPS hysteresis buffer to prevent oscillation.</p>
+<table>
+  <tbody><tr>
+    <th>Profile</th>
+    <th>Render Scale</th>
+    <th>LOD Threshold</th>
+    <th>SSAO / SSIL</th>
+    <th>Texture Filter</th>
+  </tr>
+  <tr>
+    <td><strong>Performance</strong></td>
+    <td>50 – 70%</td>
+    <td>15 px</td>
+    <td>Off</td>
+    <td>Off</td>
+  </tr>
+  <tr>
+    <td><strong>Balanced</strong></td>
+    <td>60 – 75%</td>
+    <td>10 px</td>
+    <td>Off</td>
+    <td>Low</td>
+  </tr>
+  <tr>
+    <td><strong>Quality</strong></td>
+    <td>70 – 80%</td>
+    <td>5px</td>
+    <td>On</td>
+    <td>Low</td>
+  </tr>
+</tbody></table>
+<hr>
+<h2>NEW UPDATE = IMPROVED !</h2>
+<p><img src="https://img.itch.zone/aW1nLzI2ODAzNjk0LnBuZw==/original/MZ%2FOdi.png"></p>
+<h2>Adaptive Systems&nbsp;</h2>
+<p></p>
+<h3>Stutter Detection</h3>
+<p>Uses <strong>frame-time standard deviation</strong>, not just average FPS. Detects hitching even when average FPS looks healthy. Triggers an immediate scale-down when variance exceeds the threshold.</p>
+<h3>Thermal Throttle Detection</h3>
+<p>Tracks a rolling 60-second FPS baseline. If your device's performance drifts <strong>20% below that baseline</strong> (a sign of thermal throttling), it automatically steps the quality profile down &mdash; Performance → Balanced → Quality in reverse.</p>
+<h3>Dynamic FSR</h3>
+<p>Enables <strong>FSR 1 </strong>&nbsp;automatically when there's FPS headroom. Falls back to FXAA when FPS is lower.&nbsp;</p>
+<h3>Dynamic Shadows</h3>
+<p>Shadow atlas size and directional shadow filter quality (PCF disabled / PCF5 / PCF13) scale with FPS in three tiers &mdash; all without touching your scene or lights.</p>
+<h3>Background Mode</h3>
+<p>Caps FPS at <strong>30 when the window loses focus</strong>. Re-runs the warmup window when refocused so quality recalibrates cleanly.</p>
+<h2>Smart Benchmark</h2>
+<p>Call <code>FRManager.RunBenchmark()</code> on first launch to test all three profiles for 2 seconds each. Frame Reflex picks the <strong>highest-quality profile that sustains your FPS target</strong> and saves the result &mdash; so the best profile auto-loads on every future session.</p>
+<hr>
+<h2>Setup &mdash; 2 Steps</h2>
+<ol>
+  <li>Go to <strong>Project → Plugins → FR - Frame Reflex</strong> and set it to <strong>ON</strong></li>
+  <li>Go to <strong>Project → AutoLoad</strong> and add <strong>FrManager.gd</strong></li></ol>
+<hr>
+<p><em>Compatible with Godot 4.3 and above. Works on Windows, macOS, Linux, and Android.</em></p>
+<p>ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</p>
+<p><strong>Having more FPS&nbsp;without effecting the quality ..!</strong></p>
+<figure><strong><img src="https://img.itch.zone/aW1nLzI2ODAzNTQ3LnBuZw==/original/GvaS9i.png"></strong></figure>
+<h4></h4>
