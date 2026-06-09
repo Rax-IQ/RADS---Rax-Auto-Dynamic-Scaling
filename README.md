@@ -72,7 +72,7 @@
 <h2>Setup &mdash; 2 Steps</h2>
 <ol>
   <li>Go to <strong>Project → Plugins → FR - Frame Reflex</strong> and set it to <strong>ON</strong></li>
-  <li>Go to <strong>Project → AutoLoad</strong> and add <strong>FrManager.gd</strong></li></ol>
+  <li>Go to <strong>Project → AutoLoad</strong> and add <strong>FRManager.gd</strong></li></ol>
 <hr>
 <p><em>Compatible with Godot 4.3 and above. Works on Windows, macOS, Linux, and Android.</em></p>
 <p>ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</p>
