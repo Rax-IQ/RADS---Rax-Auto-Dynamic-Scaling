@@ -1,20 +1,16 @@
 <h2>What is Frame Reflex?</h2>
 <p>
-  Frame Reflex is a <strong>single-script autoload plugin for Godot 4.3+</strong> that continuously measures your game's real runtime performance and adjusts the rendering pipeline on the fly &mdash; render scale, shadow quality, FSR, physics tick rate, LOD budget, SSAO, SSIL, SDFGI, and more.
+  Frame Reflex is a <strong>single-script autoload plugin for Godot 4.3+</strong> that continuously measures your game's real runtime performance and adjusts the rendering pipeline on the fly &mdash; render scale, shadow quality, FSR,&nbsp;LOD budget, SSAO, SSIL, SDFGI, and more.
 </p>
 <p>
   <strong>No manual per-device config. No build variants. Drop it in and forget about it.</strong>
 </p>
 <hr>
 <h2>How It Works ?</h2>
-<p>
-  </p>
-<p><strong>FrameReflex</strong> is a Godot 4 plugin that automatically adjusts rendering quality (resolution scale, shadows, LOD, FSR) in real-time to maintain a stable 60+ FPS target. It takes 4–10 seconds on startup to detect your device's performance, then keeps things running smoothly with three manual presets (Performance / Balanced / Quality) controllable from the editor.<br></p>
-<p>
-</p>
+<p><strong>FrameReflex</strong> is a Godot 4 plugin that automatically adjusts rendering quality (resolution scale, shadows, LOD, FSR) in real-time to maintain a stable 60+ FPS target. It takes 2–10 seconds on startup to detect your device's performance, then keeps things running smoothly with three manual presets (Performance / Balanced / Quality / Custom) controllable from the editor.<br></p>
 <hr>
 <h2>Quality Profiles</h2>
-<p>Three built-in profiles, each defining a <em>render scale band</em> (not a fixed value). The scale drifts continuously within that band in 2.5% steps, with a 3-second recovery cooldown and 5 FPS hysteresis buffer to prevent oscillation.</p>
+<p>Four built-in profiles, each defining a <em>render scale band</em> (not a fixed value). The scale drifts continuously within that band in 2.5% steps, with a 3-second recovery cooldown and 5 FPS hysteresis buffer to prevent oscillation.</p>
 <table>
   <tbody><tr>
     <th>Profile</th>
@@ -41,15 +37,25 @@
     <td><strong>Quality</strong></td>
     <td>70 – 80%</td>
     <td>5px</td>
-    <td>On</td>
-    <td>Low</td>
+    <td>On<br></td>
+    <td>Low<br></td>
+  </tr>
+  <tr>
+    <td><strong>Custom</strong></td>
+    <td>Custom</td>
+    <td>Custom</td><td>Custom<br><br></td>
+    <td>Custom<br></td>
   </tr>
 </tbody></table>
 <hr>
 <h2>NEW UPDATE = IMPROVED !</h2>
-<p><img src="https://img.itch.zone/aW1nLzI2ODAzNjk0LnBuZw==/original/MZ%2FOdi.png"></p>
+<p><img src="https://img.itch.zone/aW1nLzI3NzY2MTI5LnBuZw==/original/ng7glJ.png"></p>
 <h2>Adaptive Systems&nbsp;</h2>
 <p></p>
+<h3>NEW&nbsp;&nbsp;CUSTOM MODE</h3>
+<p>Customize your own mode and export it !&nbsp;</p>
+<p><img src="https://img.itch.zone/aW1nLzI3NzY2MTQ0LnBuZw==/original/fr70F%2F.png"><br></p>
+<p><br></p>
 <h3>Stutter Detection</h3>
 <p>Uses <strong>frame-time standard deviation</strong>, not just average FPS. Detects hitching even when average FPS looks healthy. Triggers an immediate scale-down when variance exceeds the threshold.</p>
 <h3>Thermal Throttle Detection</h3>
